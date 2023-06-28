@@ -1,0 +1,31 @@
+
+<div class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="form px-4">
+        <form [formGroup]="loginData" (ngSubmit)="onLogin(user.username, user.password)">
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                    <input type="email" matInput formControlName="username" placeholder="Ex. pat@example.com" [(ngModel)]="user.username">
+                    <div *ngIf="submitted" class="invalid-feedback">
+                        <div *ngIf="loginData.hasError('email')">Email is required</div>
+                        <div *ngIf="loginData.hasError('email')">Email must be a valid email address</div>
+                    </div>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <mat-icon matPrefix>vpn_key</mat-icon>
+                    <input type="password" matInput formControlName="password" placeholder="Password" [(ngModel)]="user.password">
+                    <mat-error *ngIf="!loginData.hasError('required')">
+                      Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+        </form>
+        <div class="btn">
+            <button mat-raised-button [disabled]="!loginData.valid" color="primary" (click)="onLogin(user.username, user.password)">Submit</button>
+        </div>
+    </div>
+</div>

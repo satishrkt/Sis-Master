@@ -1,0 +1,33 @@
+<div class="tab-pane">
+    <div class="form px-4">
+        <form [formGroup]="signupData" (ngSubmit)="onSignUp()">
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" formControlName="fname">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="lname">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+            </div>
+        </form>
+        <div class="btn">
+            <button mat-raised-button color="primary" (click)="onSignUp()">Register Now</button>
+        </div>
+    </div>
+</div>

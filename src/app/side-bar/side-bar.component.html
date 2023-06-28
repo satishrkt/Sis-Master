@@ -1,0 +1,35 @@
+<mat-nav-list>
+    <div class="logo">
+        <h2>ADMIN</h2>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon>dashboard</mat-icon>
+      <a matLine routerLink="/home" routerLinkActive="active">Dashboard</a>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon>business</mat-icon>
+      <a matLine routerLink="/business-list" routerLinkActive="active">Business</a>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon>place</mat-icon>
+      <a matLine routerLink="/location-list" routerLinkActive="active">Business Location</a>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon>manager</mat-icon>
+        <a matLine routerLink="/auditor-list" routerLinkActive="active">Auditor</a>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon>manager</mat-icon>
+        <a matLine routerLink="">Branch Manager</a>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon>manager</mat-icon> 
+        <a matLine routerLink="">Regional Manager</a>
+    </mat-list-item>
+    <mat-list-item class="logout">
+        <mat-icon>logout</mat-icon>
+        <a matLine (click)="logout()" routerLink="/signin">Logout</a>
+    </mat-list-item>
+</mat-nav-list>
+      

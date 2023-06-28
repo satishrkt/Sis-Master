@@ -1,0 +1,10 @@
+.row {
+    /* width: 200px; */
+    display: flex;
+    /* justify-content: center; */
+    /* flex-direction: row; */
+    /* gap: 10px; */
+}
+mat-dialog-title {
+    text-align: end;
+}

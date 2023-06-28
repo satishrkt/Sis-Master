@@ -1,0 +1,112 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Add New Auditor</span>
+        <span class="example-spacer"></span>
+        <button mat-raised-button color="primary">Add Auditor</button>
+    </mat-toolbar>
+    <div>
+        <form [formGroup]="formData">
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Business Name</mat-label>
+                        <mat-select formControlName="businessName">
+                            <mat-option>name</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Location Name</mat-label>
+                        <mat-select formControlName="locationName">
+                            <mat-option>1</mat-option>
+                            <mat-option>2</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Mobile</mat-label>
+                        <input matInput type="text" formControlName="mobile">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" formControlName="firstName">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput type="text" formControlName="middleName">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" formControlName="lastName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">  
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" formControlName="address">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="outline" class="example-full-spacer">
+                        <mat-label>Country</mat-label>
+                        <mat-select (valueChange)="onCountryChange($event)" formControlName="country">
+                            <mat-option [value]="null">Select your Country</mat-option>
+                            <mat-option *ngFor="let country of countries" [value]="country">{{ country.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">   
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>State</mat-label>
+                        <mat-select (valueChange)="onStateChange($event)" formControlName="state">
+                            <mat-option [value]="null">Select your State</mat-option>
+                            <mat-option *ngFor="let state of states" [value]="state">{{ state.name }}</mat-option>
+                        </mat-select>
+                          
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">  
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>City</mat-label>
+                        <mat-select (valueChange)="onCityChange($event)" formControlName="city">
+                            <mat-option [value]="null">Select your City</mat-option>
+                            <mat-option *ngFor="let city of cities" [value]="city">{{city.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="example-full-spacer1">
+                        <mat-label>Zip Code</mat-label>
+                        <input matInput type="number" minlength="6" maxlength="6" formControlName="zipCode">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="btn">
+                <button mat-raised-button color="primary" (click)="createAuditor()">Save</button>
+                <button mat-raised-button color="warn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
