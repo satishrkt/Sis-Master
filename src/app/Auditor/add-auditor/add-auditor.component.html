@@ -5,13 +5,14 @@
         <button mat-raised-button color="primary">Add Auditor</button>
     </mat-toolbar>
     <div>
-        <form [formGroup]="formData">
+        <form [formGroup]="formData" (ngSubmit)="createAuditor()">
             <div class="row mt-5">
                 <div class="col-md-6">
                     <mat-form-field appearance="outline" class="example-full-spacer">
                         <mat-label>Business Name</mat-label>
-                        <mat-select formControlName="businessName">
-                            <mat-option>name</mat-option>
+                        <mat-select formControlName="businessName" (valueChange)="onChangeBusiness($event)">
+                            <mat-option [value]="null">Select your business</mat-option>
+                            <mat-option *ngFor="let business of businessList" [value]="business.businessId">{{business.businessName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -19,8 +20,8 @@
                     <mat-form-field appearance="outline" class="example-full-spacer">
                         <mat-label>Location Name</mat-label>
                         <mat-select formControlName="locationName">
-                            <mat-option>1</mat-option>
-                            <mat-option>2</mat-option>
+                            <mat-option [value]="null">Select your locations</mat-option>
+                            <mat-option *ngFor="let location of locationList" [value]="location.locationId">{{location.locationName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -37,7 +38,7 @@
                         <mat-label>Email</mat-label>
                         <input matInput type="text" formControlName="email">
                     </mat-form-field>
-                </div>
+                </div>   
             </div>
             <div class="row">
                 <div class="col">
@@ -99,7 +100,7 @@
                 <div class="col-md-4">
                     <mat-form-field appearance="outline" class="example-full-spacer1">
                         <mat-label>Zip Code</mat-label>
-                        <input matInput type="number" minlength="6" maxlength="6" formControlName="zipCode">
+                        <input matInput type="text" minLength="6" maxLength="6" formControlName="zipCode">
                     </mat-form-field>
                 </div>
             </div>

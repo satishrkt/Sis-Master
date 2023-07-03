@@ -30,20 +30,29 @@ export class SignInComponent implements OnInit {
 
   get f() { return this.loginData.controls; }
 
-
-  onLogin(username : any, password : any) {
+  logout(){
+    this.api.logout()
+  }
+  
+  onLogin(username: any, password: any) {
     if (this.loginData.invalid) {
       return;    
     }
-    this.api.userAuthentication(username, password).subscribe((res : any) => {
+  
+    this.api.userAuthentication(username, password).subscribe((res: any) => {
       this.loader.show();
       if (res.status === 1 && res.msg === "SUCCESS") {
         const token = res.data[0].details[0].token;
         this.submitted = true;
-        localStorage.setItem("token", token)
-        localStorage.setItem("username", username)
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
         this.router.navigate(['/home']);
         return res;
+      } else if (res.msg === "INVALID_TOKEN") {
+        // Handle expired token
+        this.logout();
+        // Redirect the user back to the login page
+        this.router.navigate(['/login']);
       } else {
         console.error("Failed to authenticate user");
       }
@@ -51,4 +60,5 @@ export class SignInComponent implements OnInit {
       console.error(error);
     });
   }
+  
 }

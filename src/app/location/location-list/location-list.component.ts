@@ -60,7 +60,7 @@ export class LocationListComponent implements OnInit {
   }
 
   getLocations() {
-    this.api.getLocationDetails().subscribe((res: any) => {
+    this.api.getLocationDetails(null).subscribe((res: any) => {
       if(res.status === 1 && res.msg === "SUCCESS") {
         this.dataSource = new MatTableDataSource(res.data[0].details);
         this.dataSource.paginator = this.paginator;

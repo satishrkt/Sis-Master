@@ -1,6 +1,6 @@
 <mat-toolbar>
     <span>Auditor List</span>
-    <span class="example-spacer"></span>
+    <span class="example-spacer"></span> 
     <button mat-raised-button color="primary" routerLink="/add-auditor" routerLinkActive="active">Add Aduditor</button>
 </mat-toolbar>
 <div class="container">
@@ -20,7 +20,7 @@
                 <ng-container *ngIf="columns == 'action'">
                     <th mat-header-cell *matHeaderCellDef>{{ columns }}</th>
                     <td mat-cell *matCellDef="let data">
-                        <button mat-icon-button color="primary">
+                        <button mat-icon-button color="primary" (click)="updateAuditor(this.dataSource)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button color="warn">

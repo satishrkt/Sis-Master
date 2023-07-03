@@ -50,7 +50,6 @@ export class AddLocationComponent implements OnInit{
       this.formData.value.locationId = this.data.id.locationId;
       this.api.createLocation(this.formData.value).subscribe((res : any) => {
         if(res.status === 1 && res.msg === 'SUCCESS') {
-          // console.log(res)
           alert("Data Updated Successfully");
           this.formData.reset();
           this.dataRef.close('update');
@@ -59,7 +58,7 @@ export class AddLocationComponent implements OnInit{
         }
       });
     } else {
-      if(this.formData.value.businessId !== 'null' && this.formData.value.businessId !== '') {
+      if(this.formData.value.businessId !== null && this.formData.value.businessId !== '') {
         this.api.createLocation(this.formData.value).subscribe((res : any) => {
           if(res.status === 1 && res.msg === 'SUCCESS') {
             alert("Data Inserted Successfully");
@@ -70,7 +69,7 @@ export class AddLocationComponent implements OnInit{
           }
         });
       } else {
-        alert('Please select business');
+        alert('Please select any business');
       }
     }
   }

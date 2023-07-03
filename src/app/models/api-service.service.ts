@@ -10,7 +10,6 @@ import { Router, Routes } from "@angular/router";
 export class ApiServiceService {
 
   baseUrl = "http://localhost/Ang_Api/api/v1/public/index.php";
-  url : string = "https://raw.githubusercontent.com/sagarshirbhate/Country-State-City-Database/master/Contries.json";
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -29,8 +28,8 @@ export class ApiServiceService {
     return token !== null ? true : false;
   }
 
-  getBusinessDetails() : Observable<BusinessModel[]> { 
-    return this.http.post<BusinessModel[]>(this.baseUrl+"/getBusinessDetails", null);
+  getBusinessDetails(data? : any) : Observable<BusinessModel[]> { 
+    return this.http.post<BusinessModel[]>(this.baseUrl+"/getBusinessDetails", {busniessId : data});
   }
 
   addBusinessDetails(formData: FormData) {
@@ -49,16 +48,16 @@ export class ApiServiceService {
     return this.http.post(this.baseUrl+'/dashboardDetails', null);
   }
 
-  getLocationDetails() : Observable<LocationModel[]> {
-    return this.http.post<LocationModel[]>(this.baseUrl+"/getLocationDetails", null);
+  getLocationDetails(data? : any) : Observable<LocationModel[]> {
+    return this.http.post<LocationModel[]>(this.baseUrl+"/getLocationDetails", { businessId: data});
   }
 
   createLocation(data : any) : Observable<LocationModel[]> {
     return this.http.post<LocationModel[]>(this.baseUrl+"/createBusinessLocation", data);
   }
   
-  getUsersDetails() : Observable<UserModel[]> {
-    return this.http.post<UserModel[]>(this.baseUrl+'/getUsersDetails', null);
+  getUsersDetails(data? : any) : Observable<UserModel[]> {
+    return this.http.post<UserModel[]>(this.baseUrl+'/getUsersDetails', {typeId : data});
   }
 
   logout() {
@@ -69,10 +68,6 @@ export class ApiServiceService {
 
   createAuditor(data : any) : Observable<UserModel[]> {
     return this.http.post<UserModel[]>(this.baseUrl+'/createAuditor', data);
-  }
-
-  getAddress() : Observable<any> {
-    return this.http.get<any>(this.url);
   }
 
   deleteBusiness(data: any) {

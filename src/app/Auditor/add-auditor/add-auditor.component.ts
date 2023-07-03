@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ApiServiceService } from 'src/app/models/api-service.service';
 import { Country, State, City }  from 'country-state-city';
 import { UserModel } from 'src/app/models/model';
@@ -11,17 +11,20 @@ import { UserModel } from 'src/app/models/model';
 })
 export class AddAuditorComponent implements OnInit {
 
-  // @ViewChild('businessName') businessName !: BusinessListComponent;
-  // @ViewChild('locationName') locationName !: LocationListComponent;
+  @Input() data: any;
   user : UserModel = new UserModel();
   formData !: FormGroup;
   countries = Country.getAllCountries();
   states : any;
   cities : any;
+  businessList : any;
 
   selectedCountry: any;
   selectedState: any;
   selectedCity: any;
+  locationList: any;
+  selectedBusiness: any;
+  selectedLocation: any;
 
   constructor (private fb: FormBuilder, private api: ApiServiceService) {
     this.formData = this.fb.group({
@@ -30,19 +33,19 @@ export class AddAuditorComponent implements OnInit {
       firstName : this.fb.control(''),
       middleName : this.fb.control(''),
       lastName : this.fb.control(''),
-      mobile : this.fb.control(''),
+      mobile : ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
       email : this.fb.control(''),
       address : this.fb.control(''),
       state : this.fb.control(''),
       city : this.fb.control(''),
       country : this.fb.control(''),
-      zipCode : this.fb.control(''),
+      zipCode : ['', [Validators.required, Validators.min(10), Validators.max(10)]]
     })
   }
 
    ngOnInit(): void {
-    // console.log(this.businessName);
-    // console.log(this.locationName);
+    this.getBusinessDetails();
+    console.log(this.data)
   }
 
   onCountryChange(selectedCountry: any) {
@@ -62,13 +65,59 @@ export class AddAuditorComponent implements OnInit {
       this.selectedCity = null;
     }
   }
-  
+
+  onChangeBusiness(selectedBusiness : any) {
+    if(selectedBusiness !== null) {
+      const businessId = selectedBusiness;
+      this.getLocationList(businessId);
+      this.selectedBusiness = selectedBusiness;
+      this.selectedLocation = null;
+    }
+
+  }
 
   onCityChange($event: any): void {
     this.selectedCity = this.selectedCity;
   }
   
   createAuditor() {
-    console.log(this.formData.value)
+    if(this.formData.value.businessId !== null && this.formData.value.businessId !== '') {
+      if(this.formData.value.locationId !== null && this.formData.value.locationId !== '') {
+        this.api.createAuditor(this.formData.value).subscribe((res : any) => {
+          if(res.status === 1 && res.msg === 'SUCCESS') {
+            alert("Data Inserted Successfully")
+          } else {
+            alert("Datanot inserted");
+          }
+        });
+      } else{
+        alert("Please Select Location");
+      }
+    } else { 
+      alert("Please select any Business");
+    }
   }
+
+  getBusinessDetails() {
+    this.api.getBusinessDetails().subscribe((res : any) => {
+      if(res.status === 1 && res.msg === 'SUCCESS') {
+        this.businessList = res.data[0].details;
+      } else {
+        alert("Data not feched");
+      }
+    });
+  }
+
+  getLocationList(businessId: any) {
+    this.api.getLocationDetails(businessId).subscribe((res:any) => {
+      if(res.status === 1 && res.msg === 'SUCCESS') {
+        this.locationList = res.data[0].details;
+        console.log(this.locationList)
+      } else  {
+        alert('On this business not any locations Feched');
+      }
+    });
+  }
+
+  
 }
